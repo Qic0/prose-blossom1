@@ -587,78 +587,38 @@ export const WorkerDetailsDialog = ({ worker, open, onOpenChange }: WorkerDetail
                   onClick={() => handleTaskClick(task)}
                 >
                   <div className={`flex ${isMobile ? 'flex-col' : 'flex-row'} items-start justify-between gap-4`}>
-                    <div className="flex-1 space-y-4 w-full">
-                      <div className="space-y-3">
-                        <div className="flex items-start gap-3">
-                          <FileText className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                          <div className="min-w-0">
-                            <p className="text-xs text-muted-foreground">Задача</p>
-                            <p className="font-display font-bold text-base md:text-lg break-words">
-                              {task.task_title || `Задача без названия`}
-                            </p>
-                          </div>
+                    <div className="flex-1 space-y-3 w-full">
+                      <div className="flex items-center gap-3">
+                        <FileText className="h-5 w-5 text-primary flex-shrink-0" />
+                        <span className="font-display font-bold text-base md:text-lg bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent break-words">
+                          Задача №{task.task_id} - {task.task_title || `Задача без названия`}
+                        </span>
+                      </div>
+                      
+                      {task.order_title && (
+                        <div className="flex items-center gap-3 text-muted-foreground">
+                          <Briefcase className="h-4 w-4 flex-shrink-0" />
+                          <span className="font-body text-sm break-words">Заказ: {task.order_title}</span>
                         </div>
-                        
-                        {task.order_title && (
-                          <div className="flex items-start gap-3">
-                            <Briefcase className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                            <div className="min-w-0">
-                              <p className="text-xs text-muted-foreground">Заказ</p>
-                              <p className="font-semibold text-sm break-words">{task.order_title}</p>
-                            </div>
-                          </div>
-                        )}
-                        
-                        {task.execution_time_seconds && (
-                          <div className="flex items-start gap-3">
-                            <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                            <div>
-                              <p className="text-xs text-muted-foreground">Время выполнения</p>
-                              <p className="font-semibold text-sm">
-                                {formatExecutionTime(task.execution_time_seconds)}
-                              </p>
-                            </div>
-                          </div>
-                        )}
-                        
-                        {task.completed_date && (
-                          <div className="flex items-start gap-3">
-                            <CalendarIcon className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                            <div>
-                              <p className="text-xs text-muted-foreground">Дата начисления</p>
-                              <p className="font-semibold text-sm">
-                                {format(new Date(task.completed_date), 'dd MMMM yyyy, HH:mm', { locale: ru })}
-                              </p>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className={`${isMobile ? 'w-full' : 'text-right ml-4'} space-y-2`}>
-                      <div className="space-y-2">
-                        {(task.has_penalty || task.penalty_applied) ? (
-                          <>
-                            <Badge variant="destructive" className="font-display font-semibold text-base md:text-lg px-4 py-2 w-full md:w-auto justify-center">
-                              {(Number(task.payment) * (1 - ((worker.penalty_percentage || 10) / 100))).toLocaleString('ru-RU')} ₽
-                            </Badge>
-                            <Badge variant="destructive" className="block text-xs w-full md:w-auto justify-center">
-                              Штраф за ошибку ({worker.penalty_percentage || 10}%)
-                            </Badge>
-                          </>
-                        ) : (
-                          <>
-                            <Badge className="bg-green-500/10 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800 font-display font-semibold text-base md:text-lg px-4 py-2 w-full md:w-auto justify-center">
-                              {Number(task.payment).toLocaleString('ru-RU')} ₽
-                            </Badge>
-                            {task.is_review && (
-                              <Badge className="block text-xs bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-200 w-full md:w-auto justify-center">
-                                Вознаграждение за проверку
-                              </Badge>
-                            )}
-                          </>
-                        )}
-                      </div>
+                      )}
+                      
+                      {task.execution_time_seconds && (
+                        <div className="flex items-center gap-3 text-muted-foreground">
+                          <Clock className="h-4 w-4 flex-shrink-0" />
+                          <span className="font-body text-sm">
+                            Время выполнения: {formatExecutionTime(task.execution_time_seconds)}
+                          </span>
+                        </div>
+                      )}
+                      
+                      {task.completed_date && (
+                        <div className="flex items-center gap-3 text-muted-foreground">
+                          <CalendarIcon className="h-4 w-4 flex-shrink-0" />
+                          <span className="font-body text-sm">
+                            Дата начисления: {format(new Date(task.completed_date), 'dd MMMM yyyy, HH:mm', { locale: ru })}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     
                     <div className={`${isMobile ? 'w-full' : 'text-right ml-4'} space-y-2`}>
