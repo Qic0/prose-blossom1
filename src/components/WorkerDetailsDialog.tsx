@@ -660,6 +660,32 @@ export const WorkerDetailsDialog = ({ worker, open, onOpenChange }: WorkerDetail
                         )}
                       </div>
                     </div>
+                    
+                    <div className={`${isMobile ? 'w-full' : 'text-right ml-4'} space-y-2`}>
+                      <div className="space-y-2">
+                        {(task.has_penalty || task.penalty_applied) ? (
+                          <>
+                            <Badge variant="destructive" className="font-display font-semibold text-base md:text-lg px-4 py-2 w-full md:w-auto justify-center">
+                              {(Number(task.payment) * (1 - ((worker.penalty_percentage || 10) / 100))).toLocaleString('ru-RU')} ₽
+                            </Badge>
+                            <Badge variant="destructive" className="block text-xs w-full md:w-auto justify-center">
+                              Штраф за ошибку ({worker.penalty_percentage || 10}%)
+                            </Badge>
+                          </>
+                        ) : (
+                          <>
+                            <Badge className="bg-green-500/10 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800 font-display font-semibold text-base md:text-lg px-4 py-2 w-full md:w-auto justify-center">
+                              {Number(task.payment).toLocaleString('ru-RU')} ₽
+                            </Badge>
+                            {task.is_review && (
+                              <Badge className="block text-xs bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-200 w-full md:w-auto justify-center">
+                                Вознаграждение за проверку
+                              </Badge>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
