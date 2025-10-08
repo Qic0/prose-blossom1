@@ -527,6 +527,27 @@ const TaskDetailsDialog = ({
             </Card>}
 
         <div className="space-y-6 mt-6 flex-1 overflow-y-auto">
+          {/* История возвратов на доработку */}
+          {reviewReturns.length > 0 && <Card>
+              <CardHeader>
+                <CardTitle className="font-display font-bold text-base sm:text-lg flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-warning" />
+                  История возвратов на доработку
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {reviewReturns.map((returnItem: any) => <div key={returnItem.return_number} className="border-l-4 border-warning pl-3 sm:pl-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 mb-1">
+                      <span className="font-semibold text-sm sm:text-base">Возврат #{returnItem.return_number}</span>
+                      <span className="text-xs sm:text-sm text-muted-foreground">
+                        {formatDate(returnItem.returned_at)}
+                      </span>
+                    </div>
+                    <p className="text-xs sm:text-sm break-words">{returnItem.comment}</p>
+                  </div>)}
+              </CardContent>
+            </Card>}
+
           {/* Основная информация */}
           <Card>
             <CardHeader>
@@ -623,27 +644,6 @@ const TaskDetailsDialog = ({
                 <p className="text-xs text-muted-foreground mt-2">
                   Нажмите для увеличения
                 </p>
-              </CardContent>
-            </Card>}
-
-          {/* История возвратов на доработку */}
-          {reviewReturns.length > 0 && <Card>
-              <CardHeader>
-                <CardTitle className="font-display font-bold text-base sm:text-lg flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-warning" />
-                  История возвратов на доработку
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {reviewReturns.map((returnItem: any) => <div key={returnItem.return_number} className="border-l-4 border-warning pl-3 sm:pl-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 mb-1">
-                      <span className="font-semibold text-sm sm:text-base">Возврат #{returnItem.return_number}</span>
-                      <span className="text-xs sm:text-sm text-muted-foreground">
-                        {formatDate(returnItem.returned_at)}
-                      </span>
-                    </div>
-                    <p className="text-xs sm:text-sm break-words">{returnItem.comment}</p>
-                  </div>)}
               </CardContent>
             </Card>}
 
