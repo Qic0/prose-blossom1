@@ -591,7 +591,7 @@ export const WorkerDetailsDialog = ({ worker, open, onOpenChange }: WorkerDetail
                       <div className="flex items-center gap-3">
                         <FileText className="h-5 w-5 text-primary flex-shrink-0" />
                         <span className="font-display font-bold text-base md:text-lg bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent break-words">
-                          Задача №{task.task_id} - {task.task_title || `Задача без названия`}
+                          {task.task_title || `Задача без названия`}
                         </span>
                       </div>
                       
